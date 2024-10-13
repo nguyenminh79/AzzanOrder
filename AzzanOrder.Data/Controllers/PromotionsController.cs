@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,55 +11,55 @@ namespace AzzanOrder.Data.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FeedbackController : ControllerBase
+    public class PromotionsController : ControllerBase
     {
         private readonly OrderingAssistSystemContext _context;
 
-        public FeedbackController(OrderingAssistSystemContext context)
+        public PromotionsController(OrderingAssistSystemContext context)
         {
             _context = context;
         }
 
-        // GET: api/Feedback
+        // GET: api/Promotions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Feedback>>> GetFeedbacks()
+        public async Task<ActionResult<IEnumerable<Promotion>>> GetPromotions()
         {
-          if (_context.Feedbacks == null)
+          if (_context.Promotions == null)
           {
               return NotFound();
           }
-            return await _context.Feedbacks.ToListAsync();
+            return await _context.Promotions.ToListAsync();
         }
 
-        // GET: api/Feedback/5
+        // GET: api/Promotions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Feedback>> GetFeedback(int id)
+        public async Task<ActionResult<Promotion>> GetPromotion(int id)
         {
-          if (_context.Feedbacks == null)
+          if (_context.Promotions == null)
           {
               return NotFound();
           }
-            var feedback = await _context.Feedbacks.FindAsync(id);
+            var promotion = await _context.Promotions.FindAsync(id);
 
-            if (feedback == null)
+            if (promotion == null)
             {
                 return NotFound();
             }
 
-            return feedback;
+            return promotion;
         }
 
-        // PUT: api/Feedback/5
+        // PUT: api/Promotions/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFeedback(int id, Feedback feedback)
+        public async Task<IActionResult> PutPromotion(int id, Promotion promotion)
         {
-            if (id != feedback.Feedbackid)
+            if (id != promotion.PromotionId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(feedback).State = EntityState.Modified;
+            _context.Entry(promotion).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace AzzanOrder.Data.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FeedbackExists(id))
+                if (!PromotionExists(id))
                 {
                     return NotFound();
                 }
@@ -80,44 +80,44 @@ namespace AzzanOrder.Data.Controllers
             return NoContent();
         }
 
-        // POST: api/Feedback
+        // POST: api/Promotions
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Feedback>> PostFeedback(Feedback feedback)
+        public async Task<ActionResult<Promotion>> PostPromotion(Promotion promotion)
         {
-          if (_context.Feedbacks == null)
+          if (_context.Promotions == null)
           {
-              return Problem("Entity set 'OrderingAssistSystemContext.Feedbacks'  is null.");
+              return Problem("Entity set 'OrderingAssistSystemContext.Promotions'  is null.");
           }
-            _context.Feedbacks.Add(feedback);
+            _context.Promotions.Add(promotion);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFeedback", new { id = feedback.Feedbackid }, feedback);
+            return CreatedAtAction("GetPromotion", new { id = promotion.PromotionId }, promotion);
         }
 
-        // DELETE: api/Feedback/5
+        // DELETE: api/Promotions/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFeedback(int id)
+        public async Task<IActionResult> DeletePromotion(int id)
         {
-            if (_context.Feedbacks == null)
+            if (_context.Promotions == null)
             {
                 return NotFound();
             }
-            var feedback = await _context.Feedbacks.FindAsync(id);
-            if (feedback == null)
+            var promotion = await _context.Promotions.FindAsync(id);
+            if (promotion == null)
             {
                 return NotFound();
             }
 
-            _context.Feedbacks.Remove(feedback);
+            _context.Promotions.Remove(promotion);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool FeedbackExists(int id)
+        private bool PromotionExists(int id)
         {
-            return (_context.Feedbacks?.Any(e => e.Feedbackid == id)).GetValueOrDefault();
+            return (_context.Promotions?.Any(e => e.PromotionId == id)).GetValueOrDefault();
         }
     }
 }

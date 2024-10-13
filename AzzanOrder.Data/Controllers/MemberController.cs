@@ -13,9 +13,9 @@ namespace AzzanOrder.Data.Controllers
     [ApiController]
     public class MemberController : ControllerBase
     {
-        private readonly AzzanOrderContext _context;
+        private readonly OrderingAssistSystemContext _context;
 
-        public MemberController(AzzanOrderContext context)
+        public MemberController(OrderingAssistSystemContext context)
         {
             _context = context;
         }
@@ -87,7 +87,7 @@ namespace AzzanOrder.Data.Controllers
         {
           if (_context.Members == null)
           {
-              return Problem("Entity set 'AzzanOrderContext.Members'  is null.");
+              return Problem("Entity set 'OrderingAssistSystemContext.Members'  is null.");
           }
             _context.Members.Add(member);
             await _context.SaveChangesAsync();

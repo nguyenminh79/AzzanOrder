@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,55 +11,55 @@ namespace AzzanOrder.Data.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FeedbackController : ControllerBase
+    public class AboutsController : ControllerBase
     {
         private readonly OrderingAssistSystemContext _context;
 
-        public FeedbackController(OrderingAssistSystemContext context)
+        public AboutsController(OrderingAssistSystemContext context)
         {
             _context = context;
         }
 
-        // GET: api/Feedback
+        // GET: api/Abouts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Feedback>>> GetFeedbacks()
+        public async Task<ActionResult<IEnumerable<About>>> GetAbouts()
         {
-          if (_context.Feedbacks == null)
+          if (_context.Abouts == null)
           {
               return NotFound();
           }
-            return await _context.Feedbacks.ToListAsync();
+            return await _context.Abouts.ToListAsync();
         }
 
-        // GET: api/Feedback/5
+        // GET: api/Abouts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Feedback>> GetFeedback(int id)
+        public async Task<ActionResult<About>> GetAbout(int id)
         {
-          if (_context.Feedbacks == null)
+          if (_context.Abouts == null)
           {
               return NotFound();
           }
-            var feedback = await _context.Feedbacks.FindAsync(id);
+            var about = await _context.Abouts.FindAsync(id);
 
-            if (feedback == null)
+            if (about == null)
             {
                 return NotFound();
             }
 
-            return feedback;
+            return about;
         }
 
-        // PUT: api/Feedback/5
+        // PUT: api/Abouts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFeedback(int id, Feedback feedback)
+        public async Task<IActionResult> PutAbout(int id, About about)
         {
-            if (id != feedback.Feedbackid)
+            if (id != about.AboutId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(feedback).State = EntityState.Modified;
+            _context.Entry(about).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace AzzanOrder.Data.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FeedbackExists(id))
+                if (!AboutExists(id))
                 {
                     return NotFound();
                 }
@@ -80,44 +80,44 @@ namespace AzzanOrder.Data.Controllers
             return NoContent();
         }
 
-        // POST: api/Feedback
+        // POST: api/Abouts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Feedback>> PostFeedback(Feedback feedback)
+        public async Task<ActionResult<About>> PostAbout(About about)
         {
-          if (_context.Feedbacks == null)
+          if (_context.Abouts == null)
           {
-              return Problem("Entity set 'OrderingAssistSystemContext.Feedbacks'  is null.");
+              return Problem("Entity set 'OrderingAssistSystemContext.Abouts'  is null.");
           }
-            _context.Feedbacks.Add(feedback);
+            _context.Abouts.Add(about);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFeedback", new { id = feedback.Feedbackid }, feedback);
+            return CreatedAtAction("GetAbout", new { id = about.AboutId }, about);
         }
 
-        // DELETE: api/Feedback/5
+        // DELETE: api/Abouts/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFeedback(int id)
+        public async Task<IActionResult> DeleteAbout(int id)
         {
-            if (_context.Feedbacks == null)
+            if (_context.Abouts == null)
             {
                 return NotFound();
             }
-            var feedback = await _context.Feedbacks.FindAsync(id);
-            if (feedback == null)
+            var about = await _context.Abouts.FindAsync(id);
+            if (about == null)
             {
                 return NotFound();
             }
 
-            _context.Feedbacks.Remove(feedback);
+            _context.Abouts.Remove(about);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool FeedbackExists(int id)
+        private bool AboutExists(int id)
         {
-            return (_context.Feedbacks?.Any(e => e.Feedbackid == id)).GetValueOrDefault();
+            return (_context.Abouts?.Any(e => e.AboutId == id)).GetValueOrDefault();
         }
     }
 }
